@@ -1,0 +1,63 @@
+
+create table Administrator(
+Name varchar(10),
+Email_ID varchar(15),
+Department char(5),
+Residential_details varchar(20),
+User_ID varchar(10),
+Primary key(Name),
+Foreign key(User_ID) references Laptop_Router
+)
+
+create table Laptop_Router(
+User_ID varchar(10),
+MAC_address varchar(15),
+Serial_Number char(10),
+Name varchar(10),
+Primary key(User_ID),
+Foreign key(Name) references Administrator
+)
+
+create table Register(
+r_id varchar(10),
+IST_time timestamp,
+ConnectionStatus char(12),
+MAC_address varchar(15),
+Network_ID varchar(15),
+Primary key(r_id),
+Foreign key(Network_ID) references Routing_Table
+Foreign key(MAC_address) references Laptop_Router
+)
+
+create table Devices(
+Device_ID varchar(10),
+IP_address varchar(15),
+Frequency char(5),
+Primary key(Device_ID),
+list_id varchar(5),
+Foreign key(Network_ID) references Routing_Table,
+Foreign key(User_ID) references Laptop_Router,
+Foreign key(Register_ID) references Register
+)
+
+create table Routing_Table(
+Network_ID varchar(15),
+Subnet_Mask varchar(15),
+Interface char(3),
+Primary key(Network_ID)
+)
+
+create table Block_List(
+
+blocked_Device_ID varchar(10),
+blocked_IP_address varchar(15),
+Primary key(list_id),
+Foreign key(User_ID) references Laptop_Router,
+)
+
+create table properties(
+limit_of_devices varchar(3),
+data_usage varchar(6),
+User_ID varchar(10),
+8Foreign key(User_ID) references Laptop_Router,
+)
